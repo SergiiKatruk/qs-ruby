@@ -40,12 +40,13 @@ class ListEnvelopesController < ApplicationController
     # # Use ISO 8601 date format
     options =  DocuSign_eSign::ListStatusChangesOptions.new
     options.from_date = (Date.today - 10).strftime("%Y/%m/%d")
-
+    
     # Step 2. Call the API
     configuration = DocuSign_eSign::Configuration.new
     configuration.host = base_path
     api_client = DocuSign_eSign::ApiClient.new configuration
     api_client.default_headers["Authorization"] = "Bearer " + access_token
+    api_client.set_base_path base_path
     envelopes_api = DocuSign_eSign::EnvelopesApi.new api_client
     results = envelopes_api.list_status_changes account_id, options
 

@@ -74,6 +74,7 @@ class SendEnvelopeController < ApplicationController
     configuration.host = base_path
     api_client = DocuSign_eSign::ApiClient.new configuration
     api_client.default_headers["Authorization"] = "Bearer " + access_token
+    api_client.set_base_path base_path
     envelopes_api = DocuSign_eSign::EnvelopesApi.new api_client
 
     results = envelopes_api.create_envelope account_id, envelope_definition
